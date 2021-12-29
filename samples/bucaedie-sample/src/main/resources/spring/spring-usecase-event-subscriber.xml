@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:ucede="http://cc.bucaedie/schema/ucede"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://cc.bucaedie/schema/ucede http://cc.bucaedie/schema/ucede/ucede.xsd">
+
+    <ucede:identitySubscriber identity="ORDER">
+        <ucede:subscriber domain="ORDER" event="1">
+            <ucede:triggerUseCase domain="ORDER" useCase="sendSms" convertor="orderEvent2ContextConvertor"/>
+        </ucede:subscriber>
+    </ucede:identitySubscriber>
+
+</beans>

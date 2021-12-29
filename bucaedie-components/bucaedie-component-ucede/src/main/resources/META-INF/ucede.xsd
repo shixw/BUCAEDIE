@@ -1,0 +1,67 @@
+<xsd:schema xmlns="http://cc.bucaedie/schema/ucede"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://cc.bucaedie/schema/ucede">
+    <xsd:complexType name="identitySubscriberType">
+        <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+            <xsd:element ref="subscriber" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="identity" type="xsd:string">
+            <xsd:annotation>
+                <xsd:documentation><![CDATA[ 业务身份编码 ]]></xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:complexType name="subscriberType">
+        <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+            <xsd:element ref="triggerUseCase" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="domain" type="xsd:string">
+            <xsd:annotation>
+                <xsd:documentation><![CDATA[ 业务领域 ]]></xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="event" type="xsd:string">
+            <xsd:annotation>
+                <xsd:documentation><![CDATA[ 事件 ]]></xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:complexType name="triggerUseCaseType">
+        <xsd:attribute name="domain" type="xsd:string">
+            <xsd:annotation>
+                <xsd:documentation><![CDATA[ 业务领域 ]]></xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="useCase" type="xsd:string">
+            <xsd:annotation>
+                <xsd:documentation><![CDATA[ 业务用例 ]]></xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute name="convertor" type="xsd:string">
+            <xsd:annotation>
+                <xsd:documentation><![CDATA[ 将事件转换的业务用例入参的转换器 ]]></xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
+    </xsd:complexType>
+
+    <xsd:element name="triggerUseCase" type="triggerUseCaseType">
+        <xsd:annotation>
+            <xsd:documentation><![CDATA[ 事件订阅关系 ]]></xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+
+    <xsd:element name="subscriber" type="subscriberType">
+        <xsd:annotation>
+            <xsd:documentation><![CDATA[ 事件订阅关系 ]]></xsd:documentation>
+        </xsd:annotation>
+    </xsd:element>
+
+    <xsd:element name="identitySubscriber" type="identitySubscriberType">
+        <xsd:annotation>
+            <xsd:documentation><![CDATA[ 业务身份对应的业务事件订阅映射关系 ]]></xsd:documentation>
+        </xsd:annotation>
+
+    </xsd:element>
+</xsd:schema>
