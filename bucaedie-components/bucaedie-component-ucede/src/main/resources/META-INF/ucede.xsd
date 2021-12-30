@@ -1,6 +1,6 @@
-<xsd:schema xmlns="http://cc.bucaedie/schema/ucede"
+<xsd:schema xmlns="http://bucaedie.cc/schema/ucede"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            targetNamespace="http://cc.bucaedie/schema/ucede">
+            targetNamespace="http://bucaedie.cc/schema/ucede">
     <xsd:complexType name="identitySubscriberType">
         <xsd:sequence minOccurs="0" maxOccurs="unbounded">
             <xsd:element ref="subscriber" minOccurs="0" maxOccurs="unbounded"/>
