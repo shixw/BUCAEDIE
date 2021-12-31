@@ -47,7 +47,17 @@ public class IdentitySubscriberBeanDefinitionParser implements BeanDefinitionPar
                         if (!beanDefinitionRegistry.containsBeanDefinition(convertor)){
                             throw new IllegalArgumentException("bean: "+convertor+" 不存在");
                         }
-                        list.add(new UseCaseEventSubscriber(triggerDomain,triggerUseCase,convertor,order));
+                        // 自定义参数
+                        UseCaseEventSubscriber subscriber = new UseCaseEventSubscriber(triggerDomain, triggerUseCase, convertor, order);
+                        // 添加自定义参数
+                        List<Element> parameterElements = DomUtils.getChildElementsByTagName(triggerUseCaseElement, "parameter");
+                        if (parameterElements!=null && parameterElements.size()>0){
+                            for (Element parameterElement : parameterElements) {
+                                subscriber.addParameter(parameterElement.getAttribute("key"),parameterElement.getAttribute("value"));
+                            }
+                        }
+
+                        list.add(subscriber);
                     }
                     // 排序
                     list.sort(Comparator.comparing(UseCaseEventSubscriber::getOrder));

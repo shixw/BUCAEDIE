@@ -43,7 +43,7 @@ public class UseCaseEventSubscriberDispatcher implements ApplicationContextAware
                     Object result = useCaseExecutor.execute(
                             useCaseEventSubscriber.getTriggerUseCaseDomain(),
                             useCaseEventSubscriber.getTriggerUseCase(),
-                            getUseCaseEvent2ArgsConvertorByBeanName(useCaseEventSubscriber.getConvertorBeanName()).convert(event));
+                            getUseCaseEvent2ArgsConvertorByBeanName(useCaseEventSubscriber.getConvertorBeanName()).convert(event,useCaseEventSubscriber.getParameter()));
                 }catch (Exception e){
                     log.error("业务事件分发执行此业务事件失败,发生系统异常,业务单号:{},业务事件:{},异常信息：",event.getBizNo(),event.getEventUniqueKey(),e);
                     // 处理异常，记录事件日志，不要将异常抛出给监听,同时不会影响触发后续用例的执行

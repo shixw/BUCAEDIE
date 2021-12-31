@@ -7,7 +7,9 @@
 
     <ucede:identitySubscriber identity="ORDER">
         <ucede:subscriber domain="ORDER" event="1">
-            <ucede:triggerUseCase domain="ORDER" useCase="sendSms" convertor="orderEvent2ContextConvertor"/>
+            <ucede:triggerUseCase domain="ORDER" useCase="sendSms" convertor="orderEvent2ContextConvertor">
+                <ucede:parameter key="123" value="333333"/>
+            </ucede:triggerUseCase>
         </ucede:subscriber>
     </ucede:identitySubscriber>
 

@@ -29,6 +29,9 @@
     </xsd:complexType>
 
     <xsd:complexType name="triggerUseCaseType">
+        <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+            <xsd:element ref="parameter" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
         <xsd:attribute name="domain" type="xsd:string">
             <xsd:annotation>
                 <xsd:documentation><![CDATA[ 业务领域 ]]></xsd:documentation>
@@ -67,6 +70,23 @@
         <xsd:annotation>
             <xsd:documentation><![CDATA[ 业务身份对应的业务事件订阅映射关系 ]]></xsd:documentation>
         </xsd:annotation>
+    </xsd:element>
 
+    <xsd:element name="parameter">
+        <xsd:annotation>
+            <xsd:documentation><![CDATA[ 参数配置 ]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+            <xsd:attribute name="key" type="xsd:string" use="required">
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[ 参数配置关键字 ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+            <xsd:attribute name="value" type="xsd:string" use="required">
+                <xsd:annotation>
+                    <xsd:documentation><![CDATA[ 参数配置值 ]]></xsd:documentation>
+                </xsd:annotation>
+            </xsd:attribute>
+        </xsd:complexType>
     </xsd:element>
 </xsd:schema>

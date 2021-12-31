@@ -8,7 +8,10 @@
     <artifactId>bucaedie-components</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
+        <!-- 业务用例抽象及事件驱动 -->
         <module>bucaedie-component-ucede</module>
+        <!-- 业务用例扩展点 -->
+        <!-- 业务身份识别-决策树 -->
     </modules>
     <packaging>pom</packaging>
 

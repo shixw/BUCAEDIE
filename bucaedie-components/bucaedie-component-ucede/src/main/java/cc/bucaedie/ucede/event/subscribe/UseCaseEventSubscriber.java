@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -33,6 +35,11 @@ public class UseCaseEventSubscriber implements Serializable {
     private Integer order = 0;
 
     /**
+     * 扩展参数
+     */
+    private Map<String,String> parameter = new HashMap<>();
+
+    /**
      * 业务事件转换器
      * 主要将事件信息转换为用例执行需要的入参
      */
@@ -52,5 +59,15 @@ public class UseCaseEventSubscriber implements Serializable {
         if (order != null){
             this.order = order;
         }
+    }
+
+    public void addParameter(String key,String value){
+        if (key==null || "".equals(key)){
+            throw new IllegalArgumentException("key不能为空");
+        }
+        if (value==null || "".equals(value)){
+            throw new IllegalArgumentException("value不能为空");
+        }
+        this.parameter.put(key,value);
     }
 }

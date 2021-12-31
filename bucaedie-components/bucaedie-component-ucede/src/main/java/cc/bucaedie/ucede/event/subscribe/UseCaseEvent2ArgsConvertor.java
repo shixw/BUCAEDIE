@@ -2,6 +2,8 @@ package cc.bucaedie.ucede.event.subscribe;
 
 import cc.bucaedie.ucede.event.UseCaseEvent;
 
+import java.util.Map;
+
 /**
  * 业务事件转换器
  */
@@ -12,5 +14,5 @@ public interface UseCaseEvent2ArgsConvertor {
      * @param event
      * @return
      */
-    Object[] convert(UseCaseEvent event);
+    Object[] convert(UseCaseEvent event, Map<String,String> parameter);
 }
