@@ -28,6 +28,11 @@ public class UseCaseEventSubscriber implements Serializable {
     private String convertorBeanName;
 
     /**
+     * 业务事件监听者执行顺序,此值越小执行越靠前
+     */
+    private Integer order = 0;
+
+    /**
      * 业务事件转换器
      * 主要将事件信息转换为用例执行需要的入参
      */
@@ -37,5 +42,15 @@ public class UseCaseEventSubscriber implements Serializable {
         this.triggerUseCaseDomain = triggerUseCaseDomain;
         this.triggerUseCase = triggerUseCase;
         this.convertorBeanName = convertorBeanName;
+    }
+
+
+    public UseCaseEventSubscriber(String triggerUseCaseDomain, String triggerUseCase, String convertorBeanName,Integer order) {
+        this.triggerUseCaseDomain = triggerUseCaseDomain;
+        this.triggerUseCase = triggerUseCase;
+        this.convertorBeanName = convertorBeanName;
+        if (order != null){
+            this.order = order;
+        }
     }
 }

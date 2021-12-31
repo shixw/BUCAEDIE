@@ -11,10 +11,7 @@ import org.springframework.beans.factory.xml.ParserContext;
 import org.springframework.util.xml.DomUtils;
 import org.w3c.dom.Element;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class IdentitySubscriberBeanDefinitionParser implements BeanDefinitionParser {
     @Override
@@ -42,11 +39,18 @@ public class IdentitySubscriberBeanDefinitionParser implements BeanDefinitionPar
                         String triggerDomain = triggerUseCaseElement.getAttribute("domain");
                         String triggerUseCase = triggerUseCaseElement.getAttribute("useCase");
                         String convertor = triggerUseCaseElement.getAttribute("convertor");
+                        String orderStr = triggerUseCaseElement.getAttribute("order");
+                        Integer order  = 0 ;
+                        if (orderStr!=null && !"".equals(orderStr)){
+                            order = Integer.valueOf(orderStr);
+                        }
                         if (!beanDefinitionRegistry.containsBeanDefinition(convertor)){
                             throw new IllegalArgumentException("bean: "+convertor+" 不存在");
                         }
-                        list.add(new UseCaseEventSubscriber(triggerDomain,triggerUseCase,convertor));
+                        list.add(new UseCaseEventSubscriber(triggerDomain,triggerUseCase,convertor,order));
                     }
+                    // 排序
+                    list.sort(Comparator.comparing(UseCaseEventSubscriber::getOrder));
                     // 维护对应关系
                     useCaseEventSubscriberMap.put(UseCaseEvent.getEventUniqueKey(domain,event),list);
                 }

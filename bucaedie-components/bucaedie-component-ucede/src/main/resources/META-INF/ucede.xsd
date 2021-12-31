@@ -44,6 +44,11 @@
                 <xsd:documentation><![CDATA[ 将事件转换的业务用例入参的转换器 ]]></xsd:documentation>
             </xsd:annotation>
         </xsd:attribute>
+        <xsd:attribute name="order" type="xsd:integer">
+            <xsd:annotation>
+                <xsd:documentation><![CDATA[ 事件订阅者执行顺序,此值越小执行越靠前 ]]></xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
     </xsd:complexType>
 
     <xsd:element name="triggerUseCase" type="triggerUseCaseType">
