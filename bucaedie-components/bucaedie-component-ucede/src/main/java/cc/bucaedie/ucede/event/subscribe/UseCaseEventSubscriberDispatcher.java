@@ -3,7 +3,6 @@ package cc.bucaedie.ucede.event.subscribe;
 import cc.bucaedie.ucede.commons.UUIDUtils;
 import cc.bucaedie.ucede.event.UseCaseEvent;
 import cc.bucaedie.ucede.event.publiser.UseCaseEventPublisherManger;
-import cc.bucaedie.ucede.usecase.UseCaseExecuteInterceptor;
 import cc.bucaedie.ucede.usecase.UseCaseExecutor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
@@ -42,7 +41,9 @@ public class UseCaseEventSubscriberDispatcher implements ApplicationContextAware
                 try{
                     Object result = useCaseExecutor.execute(
                             useCaseEventSubscriber.getTriggerUseCaseDomain(),
+                            useCaseEventSubscriber.getTriggerUseCaseService(),
                             useCaseEventSubscriber.getTriggerUseCase(),
+                            event.getIdentity(),
                             getUseCaseEvent2ArgsConvertorByBeanName(useCaseEventSubscriber.getConvertorBeanName()).convert(event,useCaseEventSubscriber.getParameter()));
                 }catch (Exception e){
                     log.error("业务事件分发执行此业务事件失败,发生系统异常,业务单号:{},业务事件:{},异常信息：",event.getBizNo(),event.getEventUniqueKey(),e);
@@ -51,10 +52,12 @@ public class UseCaseEventSubscriberDispatcher implements ApplicationContextAware
                     useCaseEvent.setEvent("DISPATCHER_CONVERT_FAIL");
                     useCaseEvent.setUuid(UUIDUtils.getUUID());
                     useCaseEvent.setBizNo(event.getBizNo());
+                    useCaseEvent.setIdentity(event.getIdentity());
                     useCaseEvent.setOperator("EVENT:DISPATCHER");
                     useCaseEvent.setOperationTime(new Date());
-                    useCaseEvent.setMessage("业务事件:"+event.getEventUniqueKey()+"触发执行此业务用例失败,发生系统异常,位置主要为事件转换入参的位置,此错误请勿使用业务用例重置功能,具体查看日志,异常信息："+e.getMessage());
+                    useCaseEvent.setMessage("业务事件:"+event.getEventUniqueKey()+"触发执行此业务用例失败,发生系统异常,位置主要为事件转换入参、获取业务身份及扩展等位置,此错误请勿使用业务用例重置功能,具体查看日志,异常信息："+e.getMessage());
                     useCaseEvent.setUseCaseCode(useCaseEventSubscriber.getTriggerUseCase());
+                    useCaseEvent.setUseCaseServiceCode(useCaseEventSubscriber.getTriggerUseCaseService());
                     useCaseEvent.setDomain(useCaseEventSubscriber.getTriggerUseCaseDomain());
                     useCaseEvent.setEventTime(new Date());
                     // 推送相关事件

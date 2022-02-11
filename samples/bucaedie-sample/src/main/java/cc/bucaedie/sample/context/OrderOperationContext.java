@@ -29,4 +29,9 @@ public class OrderOperationContext implements Serializable {
      * 订单号
      */
     private String orderNo;
+
+    /**
+     * 业务身份
+     */
+    private String identity;
 }

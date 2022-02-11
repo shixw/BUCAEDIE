@@ -1,6 +1,5 @@
 package cc.bucaedie.ucede.event.subscribe;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +17,11 @@ public class UseCaseEventSubscriber implements Serializable {
      * 触发的业务用例领域
      */
     private String triggerUseCaseDomain;
+
+    /**
+     * 触发业务用例服务
+     */
+    private String triggerUseCaseService;
 
     /**
      * 触发的业务用例
@@ -45,15 +49,17 @@ public class UseCaseEventSubscriber implements Serializable {
      */
     private UseCaseEvent2ArgsConvertor convertor;
 
-    public UseCaseEventSubscriber(String triggerUseCaseDomain, String triggerUseCase, String convertorBeanName) {
+    public UseCaseEventSubscriber(String triggerUseCaseDomain,String triggerUseCaseService, String triggerUseCase, String convertorBeanName) {
         this.triggerUseCaseDomain = triggerUseCaseDomain;
+        this.triggerUseCaseService = triggerUseCaseService;
         this.triggerUseCase = triggerUseCase;
         this.convertorBeanName = convertorBeanName;
     }
 
 
-    public UseCaseEventSubscriber(String triggerUseCaseDomain, String triggerUseCase, String convertorBeanName,Integer order) {
+    public UseCaseEventSubscriber(String triggerUseCaseDomain,String triggerUseCaseService,String triggerUseCase, String convertorBeanName,Integer order) {
         this.triggerUseCaseDomain = triggerUseCaseDomain;
+        this.triggerUseCaseService = triggerUseCaseService;
         this.triggerUseCase = triggerUseCase;
         this.convertorBeanName = convertorBeanName;
         if (order != null){

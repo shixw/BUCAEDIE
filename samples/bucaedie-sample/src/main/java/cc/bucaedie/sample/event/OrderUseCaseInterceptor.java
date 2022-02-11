@@ -1,6 +1,9 @@
 package cc.bucaedie.sample.event;
 
+import cc.bucaedie.sample.context.OrderCreateContext;
+import cc.bucaedie.sample.context.OrderOperationContext;
 import cc.bucaedie.sample.context.OrderOperationResult;
+import cc.bucaedie.ucede.commons.IdentityConstants;
 import cc.bucaedie.ucede.usecase.UseCaseExecuteInterceptor;
 import cc.bucaedie.ucede.usecase.UseCaseInfo;
 import com.alibaba.fastjson.JSON;
@@ -43,5 +46,11 @@ public class OrderUseCaseInterceptor implements UseCaseExecuteInterceptor<OrderE
         result.setMessage("发生异常."+exception.getMessage());
         result.setSuccess(false);
         return result;
+    }
+
+    @Override
+    public String getIdentity(UseCaseInfo useCaseInfo, Object[] args) {
+        OrderCreateContext context = (OrderCreateContext) args[0];
+        return context.getIdentity();
     }
 }

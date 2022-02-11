@@ -8,6 +8,7 @@ import cc.bucaedie.ucede.usecase.DefaultUseCaseExecuteInterceptor;
 import cc.bucaedie.ucede.usecase.UseCaseExecutor;
 import cc.bucaedie.ucede.usecase.UseCaseRepository;
 import cc.bucaedie.ucede.usecase.aspect.UseCaseAroundAdvice;
+import cc.bucaedie.ucede.usecase.aspect.UseCaseRouterAroundAdvice;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +30,13 @@ public class UcedeAutoConfiguration {
     public UseCaseAroundAdvice useCaseAroundAdvice(){
         return new UseCaseAroundAdvice();
     }
+
+    @Bean
+    @ConditionalOnMissingBean(UseCaseRouterAroundAdvice.class)
+    public UseCaseRouterAroundAdvice useCaseRouterAroundAdvice(){
+        return new UseCaseRouterAroundAdvice();
+    }
+
 
     @Bean
     @ConditionalOnMissingBean(DefaultUseCaseExecuteInterceptor.class)

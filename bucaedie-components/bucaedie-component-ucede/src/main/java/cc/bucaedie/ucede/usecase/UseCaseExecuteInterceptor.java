@@ -27,5 +27,13 @@ public interface UseCaseExecuteInterceptor<T extends UseCaseEvent> {
      */
     Object exception(UseCaseInfo useCaseInfo,Object[] args,Exception exception);
 
+    /**
+     * 根据业务用例入参等获取业务身份,不能返回路由业务身份
+     * @param useCaseInfo
+     * @param args
+     * @return
+     */
+    String getIdentity(UseCaseInfo useCaseInfo,Object[] args);
+
 
 }

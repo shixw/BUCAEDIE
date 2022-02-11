@@ -2,6 +2,8 @@ package cc.bucaedie.ucede.event.publiser;
 
 import cc.bucaedie.ucede.event.UseCaseEvent;
 import cc.bucaedie.ucede.event.publiser.annotation.UseCaseEventPublisher;
+import com.alibaba.fastjson.JSON;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
@@ -14,12 +16,17 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * 业务用例事件publisher管理器
  */
+@Slf4j
 public class UseCaseEventPublisherManger<T extends UseCaseEvent>  implements InitializingBean, ApplicationContextAware {
 
      public void publishEvent(T event){
           String domain = event.getDomain();
           if (publisherRepo.containsKey(domain)){
-               publisherRepo.get(domain).publishEvent(event);
+               try {
+                    publisherRepo.get(domain).publishEvent(event);
+               } catch (Exception e) {
+                    log.error("推送业务用例失败失败,事件:{},失败原因:", JSON.toJSONString(event),e);
+               }
           }
      }
 

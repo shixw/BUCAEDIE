@@ -35,4 +35,12 @@ Business use case abstraction and event driven integration engine
 @UseCaseService
 @UseCase
 
+
+
+bucaedie-component-ucede-apt
+使用 Annotation Processor Tool ,解析注解 @UseCaseService 生成默认的路由实现，通过在默认路由实现上标注 @UseCaseServiceRouterExtension，使其被spring所管理，
+通过spring aop 拦截 注解，UseCaseServiceRouterExtension 动态路由到实际的实现中
+通过注解processer生成接口的实现类，内部方法，通过业务身份会寻找实际的实现,https://github.com/square/javapoet 生成java source文件
+
+
     

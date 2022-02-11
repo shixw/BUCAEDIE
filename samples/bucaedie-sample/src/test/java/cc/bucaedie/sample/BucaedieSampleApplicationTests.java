@@ -28,6 +28,7 @@ class BucaedieSampleApplicationTests {
         context.setOperationTime(new Date());
         context.setPrice(BigDecimal.valueOf(123123.23));
         context.setUuid(UUIDUtils.getUUID());
+        context.setIdentity("XX");
         OrderOperationResult result = orderService.createOrder(context);
     }
 

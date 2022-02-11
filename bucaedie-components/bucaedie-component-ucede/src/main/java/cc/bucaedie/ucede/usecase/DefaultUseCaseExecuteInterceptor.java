@@ -1,5 +1,6 @@
 package cc.bucaedie.ucede.usecase;
 
+import cc.bucaedie.ucede.commons.IdentityConstants;
 import cc.bucaedie.ucede.event.UseCaseEvent;
 import lombok.extern.slf4j.Slf4j;
 
@@ -24,5 +25,10 @@ public class DefaultUseCaseExecuteInterceptor implements UseCaseExecuteIntercept
     public Object exception(UseCaseInfo useCaseInfo, Object[] args, Exception exception) {
         log.error("执行业务用例服务:"+useCaseInfo.getServiceCode()+",用例:"+useCaseInfo.getCode()+" 发生异常,",exception);
         return null;
+    }
+
+    @Override
+    public String getIdentity(UseCaseInfo useCaseInfo, Object[] args) {
+        return IdentityConstants.DEFAULT_IDENTITY;
     }
 }

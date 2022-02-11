@@ -35,4 +35,6 @@ public class OrderCreateContext implements Serializable {
      * 操作时间
      */
     private Date operationTime;
+
+    private String identity;
 }

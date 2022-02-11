@@ -37,6 +37,7 @@ public class IdentitySubscriberBeanDefinitionParser implements BeanDefinitionPar
                     List<UseCaseEventSubscriber> list = new ArrayList<>(triggerUseCaseElements.size());
                     for (Element triggerUseCaseElement : triggerUseCaseElements) {
                         String triggerDomain = triggerUseCaseElement.getAttribute("domain");
+                        String triggerUseCaseService = triggerUseCaseElement.getAttribute("useCaseService");
                         String triggerUseCase = triggerUseCaseElement.getAttribute("useCase");
                         String convertor = triggerUseCaseElement.getAttribute("convertor");
                         String orderStr = triggerUseCaseElement.getAttribute("order");
@@ -48,7 +49,7 @@ public class IdentitySubscriberBeanDefinitionParser implements BeanDefinitionPar
                             throw new IllegalArgumentException("bean: "+convertor+" 不存在");
                         }
                         // 自定义参数
-                        UseCaseEventSubscriber subscriber = new UseCaseEventSubscriber(triggerDomain, triggerUseCase, convertor, order);
+                        UseCaseEventSubscriber subscriber = new UseCaseEventSubscriber(triggerDomain,triggerUseCaseService, triggerUseCase, convertor, order);
                         // 添加自定义参数
                         List<Element> parameterElements = DomUtils.getChildElementsByTagName(triggerUseCaseElement, "parameter");
                         if (parameterElements!=null && parameterElements.size()>0){

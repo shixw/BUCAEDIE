@@ -37,6 +37,11 @@
                 <xsd:documentation><![CDATA[ 业务领域 ]]></xsd:documentation>
             </xsd:annotation>
         </xsd:attribute>
+        <xsd:attribute name="useCaseService" type="xsd:string">
+            <xsd:annotation>
+                <xsd:documentation><![CDATA[ 业务用例服务 ]]></xsd:documentation>
+            </xsd:annotation>
+        </xsd:attribute>
         <xsd:attribute name="useCase" type="xsd:string">
             <xsd:annotation>
                 <xsd:documentation><![CDATA[ 业务用例 ]]></xsd:documentation>
