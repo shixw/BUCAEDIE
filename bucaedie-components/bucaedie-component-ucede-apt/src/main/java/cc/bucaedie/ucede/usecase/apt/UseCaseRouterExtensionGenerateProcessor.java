@@ -5,10 +5,7 @@ import cc.bucaedie.ucede.usecase.annotation.UseCaseServiceRouterExtension;
 import com.google.auto.service.AutoService;
 import com.squareup.javapoet.*;
 
-import javax.annotation.processing.AbstractProcessor;
-import javax.annotation.processing.Processor;
-import javax.annotation.processing.RoundEnvironment;
-import javax.annotation.processing.SupportedSourceVersion;
+import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.*;
 import javax.lang.model.type.TypeMirror;
@@ -24,6 +21,18 @@ import java.util.Set;
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 @AutoService(Processor.class)
 public class UseCaseRouterExtensionGenerateProcessor extends AbstractProcessor {
+
+    private Messager messager; // 输入日志
+    private Filer filer; // 生成文件
+    private Elements elementsUtils; // Element工具
+
+    @Override
+    public synchronized void init(ProcessingEnvironment processingEnvironment) {
+        super.init(processingEnvironment);
+        messager = processingEnvironment.getMessager();
+        filer = processingEnvironment.getFiler();
+        elementsUtils = processingEnvironment.getElementUtils();
+    }
 
     @Override
     public Set<String> getSupportedAnnotationTypes() {
@@ -43,14 +52,14 @@ public class UseCaseRouterExtensionGenerateProcessor extends AbstractProcessor {
         // 获取所有使用注解标注的类型
         Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(UseCaseService.class);
         for (Element element : elements) {
+
             // 校验类型是否为接口
             if (element.getKind() != ElementKind.INTERFACE) {
                 error("注解 @UseCaseService 只能标注到接口上", element);
             }else{
                 // 为接口生成默认的实现
-                Elements elementUtils = processingEnv.getElementUtils();
                 // 获取接口的包名
-                String pkgName = elementUtils.getPackageOf(element).getQualifiedName().toString();
+                String pkgName = elementsUtils.getPackageOf(element).getQualifiedName().toString();
                 // 获取接口名称
                 String useCaseServiceInterfaceName = element.getSimpleName().toString();
                 // 获取接口所有的方法
@@ -94,7 +103,7 @@ public class UseCaseRouterExtensionGenerateProcessor extends AbstractProcessor {
                 JavaFile javaFile = JavaFile.builder(pkgName, type)
                         .build();
                 try {
-                    javaFile.writeTo(processingEnv.getFiler());
+                    javaFile.writeTo(filer);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -109,13 +118,13 @@ public class UseCaseRouterExtensionGenerateProcessor extends AbstractProcessor {
      * 打印note日志
      */
     private void note(String msg, Element e) {
-        processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, msg, e);
+        messager.printMessage(Diagnostic.Kind.NOTE, msg, e);
     }
 
     /**
      * 打印错误日志
      */
     private void error(String msg, Element e) {
-        processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, msg, e);
+        messager.printMessage(Diagnostic.Kind.ERROR, msg, e);
     }
 }
