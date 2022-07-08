@@ -91,6 +91,11 @@ public class UseCaseEvent implements Serializable {
     private String param;
 
     /**
+     * 触发产生此事件的用例的事件的UUID，主要用于trace跟踪
+     */
+    private String triggerUuid;
+
+    /**
      * 使用业务用例服务编号+事件ID作为唯一标识
      * @return
      */

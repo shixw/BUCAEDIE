@@ -3,6 +3,7 @@ package cc.bucaedie.ucede.usecase.aspect;
 import cc.bucaedie.ucede.commons.UUIDUtils;
 import cc.bucaedie.ucede.event.UseCaseEvent;
 import cc.bucaedie.ucede.event.publiser.UseCaseEventPublisherManger;
+import cc.bucaedie.ucede.event.subscribe.UseCaseEventSubscriberDispatchContextHolder;
 import cc.bucaedie.ucede.usecase.UseCaseExecuteInterceptor;
 import cc.bucaedie.ucede.usecase.UseCaseExecutor;
 import cc.bucaedie.ucede.usecase.UseCaseInfo;
@@ -78,6 +79,13 @@ public class UseCaseRouterAroundAdvice {
                 useCaseEvent.setEventTime(new Date());
                 if (StringUtils.isEmpty(useCaseEvent.getUuid())){// 补充事件的UUID
                     useCaseEvent.setUuid(UUIDUtils.getUUID());
+                }
+                // 补充触发当前用例的事件信息
+                UseCaseEvent triggerEvent = UseCaseEventSubscriberDispatchContextHolder.get();
+                if (triggerEvent!=null){
+                    useCaseEvent.setTriggerUuid(triggerEvent.getUuid());
+                }else{
+                    useCaseEvent.setTriggerUuid("-1");// 默认值设置为 -1
                 }
                 // 推送相关事件
                 useCaseEventPublisherManger.publishEvent(useCaseEvent);
