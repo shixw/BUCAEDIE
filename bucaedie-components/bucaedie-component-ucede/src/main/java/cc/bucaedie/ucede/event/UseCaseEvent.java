@@ -36,6 +36,16 @@ public class UseCaseEvent implements Serializable {
     private String useCaseDesc;
 
     /**
+     * 业务用例开始执行的时间
+     */
+    private Date useCaseExecuteTime;
+
+    /**
+     * 业务用例执行时长
+     */
+    private Long useCaseExecuteDuration;
+
+    /**
      * 业务唯一身份编码
      */
     private String identity;

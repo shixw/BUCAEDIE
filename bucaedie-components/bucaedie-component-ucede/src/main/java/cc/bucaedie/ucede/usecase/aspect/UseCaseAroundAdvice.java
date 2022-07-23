@@ -46,6 +46,8 @@ public class UseCaseAroundAdvice {
         if (useCase == null){// 判断方法是否有 UseCase 注解
             return proceedingJoinPoint.proceed();
         }
+        // 用例开始执行时间
+        Date useCaseExecuteTime = new Date();
         // 获取入参
         Object[] args = proceedingJoinPoint.getArgs();
         // 获取业务用例信息
@@ -63,6 +65,10 @@ public class UseCaseAroundAdvice {
             log.error("执行业务领域:"+useCaseInfo.getDomain()+",服务:"+useCaseInfo.getServiceCode()+",用例:"+useCase.code()+" 发生异常,",exception);
             result = interceptor.exception(useCaseInfo,args,exception);
         }finally {
+            // 此处可能会对result进行重新赋值....
+            result = interceptor.complete(useCaseInfo,args,result);
+            //用例执行结束时间
+            Date useCaseExecuteEndTime = new Date();
             // 转换结果为result
             UseCaseEvent useCaseEvent = interceptor.convertorResult2Event(useCaseInfo,args,result);
             if (useCaseEvent!=null){
@@ -70,7 +76,9 @@ public class UseCaseAroundAdvice {
                 useCaseEvent.setUseCaseServiceCode(useCaseInfo.getServiceCode());
                 useCaseEvent.setUseCaseCode(useCaseInfo.getCode());
                 useCaseEvent.setUseCaseDesc(useCaseInfo.getDesc());
-                useCaseEvent.setEventTime(new Date());
+                useCaseEvent.setUseCaseExecuteTime(useCaseExecuteTime);
+                useCaseEvent.setEventTime(useCaseExecuteEndTime);
+                useCaseEvent.setUseCaseExecuteDuration(useCaseExecuteEndTime.getTime()-useCaseExecuteTime.getTime());
                 if (StringUtils.isEmpty(useCaseEvent.getUuid())){// 补充事件的UUID
                     useCaseEvent.setUuid(UUIDUtils.getUUID());
                 }
@@ -86,8 +94,6 @@ public class UseCaseAroundAdvice {
             }else{
                 log.error("执行业务领域:"+useCaseInfo.getDomain()+",服务:"+useCaseInfo.getServiceCode()+",用例:"+useCase.code()+" 最终转换业务事件为空");
             }
-            // 此处可能会对result进行重新赋值....
-            result = interceptor.complete(useCaseInfo,args,result);
         }
         return result;
     }
