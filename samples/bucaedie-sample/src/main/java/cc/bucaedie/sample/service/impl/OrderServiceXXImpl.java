@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @UseCaseServiceExtension(identities = {"XX"})
 public class OrderServiceXXImpl implements OrderService {
+
     @Override
     public OrderOperationResult createOrder(OrderCreateContext createContext) {
         System.out.println("XX业务身份创建订单");

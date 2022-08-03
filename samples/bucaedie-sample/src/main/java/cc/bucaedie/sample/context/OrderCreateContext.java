@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class OrderCreateContext implements Serializable {
+public class OrderCreateContext extends OrderOperationContext implements Serializable {
 
     /**
      * 顾客
@@ -21,20 +21,4 @@ public class OrderCreateContext implements Serializable {
      */
     private BigDecimal price;
 
-    /**
-     * 本次请求的唯一编码
-     */
-    private String uuid;
-
-    /**
-     * 操作人
-     */
-    private String operator;
-
-    /**
-     * 操作时间
-     */
-    private Date operationTime;
-
-    private String identity;
 }

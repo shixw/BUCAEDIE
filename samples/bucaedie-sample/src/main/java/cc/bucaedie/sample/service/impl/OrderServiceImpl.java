@@ -5,19 +5,37 @@ import cc.bucaedie.sample.context.OrderOperationContext;
 import cc.bucaedie.sample.context.OrderOperationResult;
 import cc.bucaedie.sample.event.OrderUseCaseInterceptor;
 import cc.bucaedie.sample.service.OrderService;
+import cc.bucaedie.sample.service.PayService;
+import cc.bucaedie.ucede.commons.UUIDUtils;
 import cc.bucaedie.ucede.usecase.annotation.UseCase;
 import cc.bucaedie.ucede.usecase.annotation.UseCaseService;
 import cc.bucaedie.ucede.usecase.annotation.UseCaseServiceExtension;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.util.Date;
 
 @Service
 @Slf4j
 @UseCaseServiceExtension
 public class OrderServiceImpl implements OrderService {
+
+    @Autowired
+    private PayService payService;
+
     @Override
     public OrderOperationResult createOrder(OrderCreateContext createContext) {
         System.out.println("创建订单");
+        for (int i = 0; i < 2; i++) {
+            OrderOperationContext context = new OrderOperationContext();
+            context.setOperator("xx");
+            context.setOperationTime(new Date());
+            context.setUuid(UUIDUtils.getUUID());
+            context.setIdentity("XX22");
+            payService.pay(context);
+        }
         OrderOperationResult result = new OrderOperationResult();
         result.setCode(1);
         result.setMessage("成功");

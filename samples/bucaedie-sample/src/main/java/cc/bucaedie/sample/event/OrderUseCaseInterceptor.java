@@ -50,7 +50,7 @@ public class OrderUseCaseInterceptor implements UseCaseExecuteInterceptor<OrderE
 
     @Override
     public String getIdentity(UseCaseInfo useCaseInfo, Object[] args) {
-        OrderCreateContext context = (OrderCreateContext) args[0];
+        OrderOperationContext context = (OrderOperationContext) args[0];
         return context.getIdentity();
     }
 }
