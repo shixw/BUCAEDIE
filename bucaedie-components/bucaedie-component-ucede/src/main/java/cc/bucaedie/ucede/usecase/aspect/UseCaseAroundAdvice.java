@@ -89,10 +89,10 @@ public class UseCaseAroundAdvice {
                 useCaseEvent.setUuid(uuid);
                 // 补充触发当前用例的事件信息
                 UseCaseEvent triggerEvent = UseCaseEventSubscriberDispatchContextHolder.get();
-                if (triggerEvent!=null){
-                    useCaseEvent.setTriggerUuid(triggerEvent.getUuid());
-                }else if(parentUuid!=null){
+                if(parentUuid!=null){
                     useCaseEvent.setTriggerUuid(parentUuid);
+                }else if (triggerEvent!=null){
+                    useCaseEvent.setTriggerUuid(triggerEvent.getUuid());
                 }else {
                     useCaseEvent.setTriggerUuid("-1");// 默认值设置为 -1
                 }
