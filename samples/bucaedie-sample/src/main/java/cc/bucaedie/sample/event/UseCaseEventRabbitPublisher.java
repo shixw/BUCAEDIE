@@ -21,6 +21,6 @@ public class UseCaseEventRabbitPublisher implements EventPublisher<OrderEvent> {
     public void publishEvent(OrderEvent event) {
         String message = JSON.toJSONString(event);
         log.error("推送订单业务事件：{}",message);
-        rabbitTemplate.convertAndSend("order_event", message);
+//        rabbitTemplate.convertAndSend("order_event", message);
     }
 }

@@ -56,6 +56,11 @@ public class UseCaseInfo {
     private UseCaseExecuteInterceptor interceptor;
 
     /**
+     * 被系统内部触发时发生错误重试次数
+     */
+    private Integer dispatchErrorRetryTimes;
+
+    /**
      * 业务用例扩展实现map
      * key 为业务身份编码
      */

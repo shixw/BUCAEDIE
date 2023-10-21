@@ -53,4 +53,10 @@ public class OrderUseCaseInterceptor implements UseCaseExecuteInterceptor<OrderE
         OrderOperationContext context = (OrderOperationContext) args[0];
         return context.getIdentity();
     }
+
+    @Override
+    public Boolean checkResultIsErrorAndRetry(UseCaseInfo useCaseInfo, Object[] args, Object result) {
+        OrderOperationResult resultTemp = (OrderOperationResult) result;
+        return resultTemp.getCode().equals(0);
+    }
 }

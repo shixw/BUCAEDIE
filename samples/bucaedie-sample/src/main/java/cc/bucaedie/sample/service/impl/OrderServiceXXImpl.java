@@ -25,7 +25,8 @@ public class OrderServiceXXImpl implements OrderService {
         result.setSuccess(true);
         result.setOrderNo("1xxxas13");
         result.setIdentity("ORDER");
-        return result;
+        throw new RuntimeException("xxxx");
+
     }
 
     @Override

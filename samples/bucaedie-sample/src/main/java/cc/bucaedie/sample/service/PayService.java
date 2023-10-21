@@ -5,6 +5,7 @@ import cc.bucaedie.sample.context.OrderOperationResult;
 import cc.bucaedie.sample.event.OrderUseCaseInterceptor;
 import cc.bucaedie.ucede.usecase.annotation.UseCase;
 import cc.bucaedie.ucede.usecase.annotation.UseCaseService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @UseCaseService(domain = "ORDER",serviceCode = "payService",interceptor = OrderUseCaseInterceptor.class)
 public interface PayService {

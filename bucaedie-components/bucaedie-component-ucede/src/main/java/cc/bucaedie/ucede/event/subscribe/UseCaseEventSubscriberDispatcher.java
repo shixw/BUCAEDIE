@@ -48,6 +48,7 @@ public class UseCaseEventSubscriberDispatcher implements ApplicationContextAware
                                 useCaseEventSubscriber.getTriggerUseCase(),
                                 event.getIdentity(),
                                 getUseCaseEvent2ArgsConvertorByBeanName(useCaseEventSubscriber.getConvertorBeanName()).convert(event,useCaseEventSubscriber.getParameter()));
+                        // 粗出需要判断retry
                     }catch (Exception e){
                         log.error("业务事件分发执行此业务事件失败,发生系统异常,业务单号:{},业务事件:{},异常信息：",event.getBizNo(),event.getEventUniqueKey(),e);
                         // 处理异常，记录事件日志，不要将异常抛出给监听,同时不会影响触发后续用例的执行

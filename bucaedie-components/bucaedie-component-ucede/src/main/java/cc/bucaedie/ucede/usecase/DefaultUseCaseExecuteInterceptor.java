@@ -31,4 +31,9 @@ public class DefaultUseCaseExecuteInterceptor implements UseCaseExecuteIntercept
     public String getIdentity(UseCaseInfo useCaseInfo, Object[] args) {
         return IdentityConstants.DEFAULT_IDENTITY;
     }
+
+    @Override
+    public Boolean checkResultIsErrorAndRetry(UseCaseInfo useCaseInfo, Object[] args, Object result) {
+        return false;
+    }
 }

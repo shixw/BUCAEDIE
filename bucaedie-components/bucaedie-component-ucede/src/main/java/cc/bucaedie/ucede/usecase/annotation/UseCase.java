@@ -33,4 +33,10 @@ public @interface UseCase {
      */
     Class<? extends UseCaseExecuteInterceptor> interceptor() default DefaultUseCaseExecuteInterceptor.class;
 
+    /**
+     * 被系统内部触发时发生错误重试次数
+     * 默认为 0 , 表示不重试
+     */
+    int dispatchErrorRetryTimes() default 0;
+
 }

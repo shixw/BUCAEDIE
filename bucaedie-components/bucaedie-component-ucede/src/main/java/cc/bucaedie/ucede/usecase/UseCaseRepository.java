@@ -134,6 +134,7 @@ public class UseCaseRepository implements InitializingBean, ApplicationContextAw
                 interceptor = DefaultUseCaseExecuteInterceptor.class;
                 log.warn("领域:"+useCaseServiceAnnotation.domain()+",业务用例服务：" + useCaseServiceAnnotation.serviceCode() + ",业务用例：" + useCaseAnnotation.code() + " 未自定义业务用例执行拦截器,使用默认的拦截器!");
             }
+            useCase.setDispatchErrorRetryTimes(useCaseAnnotation.dispatchErrorRetryTimes());
             useCase.setInterceptor(getUseCaseInterceptorBean(interceptor));
             this.addUseCase(useCase);
         }

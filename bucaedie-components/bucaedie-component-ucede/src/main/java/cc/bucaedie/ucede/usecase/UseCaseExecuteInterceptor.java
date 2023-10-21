@@ -35,5 +35,10 @@ public interface UseCaseExecuteInterceptor<T extends UseCaseEvent> {
      */
     String getIdentity(UseCaseInfo useCaseInfo,Object[] args);
 
+    /**
+     * 校验结果是否错误并且进行重试
+     * @return
+     */
+    Boolean checkResultIsErrorAndRetry(UseCaseInfo useCaseInfo,Object[] args,Object result);
 
 }

@@ -16,7 +16,7 @@ public interface OrderService {
     /**
      * 创建订单
      */
-    @UseCase(code = "createOrder",desc = "创建订单",events = {"1"})
+    @UseCase(code = "createOrder",desc = "创建订单",events = {"orderCreated"},dispatchErrorRetryTimes = 10)
     OrderOperationResult createOrder(OrderCreateContext createContext);
 
     @UseCase(code = "sendSms",desc = "发送短信",events = {"2"})
